@@ -154,5 +154,6 @@
     <orderEntry type="library" exported="" name="google-api-client-1.19.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-panorama-8.3.0" level="project" />
     <orderEntry type="module" module-name="jokedisplay" exported="" />
+    <orderEntry type="module" module-name="javajoker" exported="" />
   </component>
 </module>

@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        testInstrumentationRunner "com.android.test.runner.MultiDexTestRunner"
     }
     buildTypes {
         release {
@@ -27,4 +28,9 @@ dependencies {
     compile project(':javajoker')
     compile project(':jokedisplay')
     compile project(path: ':backend', configuration: 'android-endpoints')
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    mavenCentral()
 }
