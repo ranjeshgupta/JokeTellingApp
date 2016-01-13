@@ -2,5 +2,5 @@
     <string name="app_name">Joke Telling App</string>
     <string name="instructions">Press the button for a delicious joke!</string>
     <string name="button_text">Tell Joke</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_unit_banner_joke_telling_bottom">ca-app-pub-1627837380143735/2054092607</string>
 </resources>
