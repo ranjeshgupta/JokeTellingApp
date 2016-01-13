@@ -10,7 +10,7 @@ import com.udacity.gradle.builditbigger.gcetask.EndpointsAsyncTask;
 import com.udacity.gradle.jokedisplay.JokeActivity;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
-    EndpointsAsyncTask jokeTask = new EndpointsAsyncTask();
+    EndpointsAsyncTask mJokeTask = new EndpointsAsyncTask();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     public void tellJoke(View view) {
-        jokeTask.delegate = this;
-        jokeTask.execute();
+        mJokeTask.delegate = this;
+        mJokeTask.execute();
     }
 
     //this override the implemented method from asyncTask

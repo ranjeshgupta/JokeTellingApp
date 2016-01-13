@@ -1,0 +1,68 @@
+package com.udacity.gradle.builditbigger;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.udacity.gradle.builditbigger.gcetask.AsyncResponse;
+import com.udacity.gradle.builditbigger.gcetask.EndpointsAsyncTask;
+import com.udacity.gradle.jokedisplay.JokeActivity;
+
+public class MainActivity extends AppCompatActivity implements AsyncResponse {
+    EndpointsAsyncTask mJokeTask = new EndpointsAsyncTask();
+    private InterstitialAd mInterstitialAd;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mJokeTask.delegate = this;
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.ad_interstitial_joke_telling));
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                mJokeTask.execute();
+            }
+        });
+    }
+
+    public void tellJoke(View view) {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            mJokeTask.execute();
+        }
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+    }
+
+    //this override the implemented method from asyncTask
+    public void processFinish(String output){
+        Intent intent = new Intent(this, JokeActivity.class);
+        intent.putExtra(JokeActivity.JOKE_KEY, output);
+        startActivity(intent);
+    }
+
+    /** Called when returning to the activity */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!mInterstitialAd.isLoaded()) {
+            requestNewInterstitial();
+        }
+    }
+}
