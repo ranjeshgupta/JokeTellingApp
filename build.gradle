@@ -17,3 +17,23 @@ allprojects {
         jcenter()
     }
 }
+
+
+task taskGceTest{
+    dependsOn "runAppEngine"
+    dependsOn ":app:test"
+    dependsOn ":backend:appengineStop"
+    doLast {
+        println "finished GCE testing"
+    }
+}
+
+task runAppEngine (dependsOn: ":backend:appengineRun") {
+    project(":backend").afterEvaluate { backend ->
+        backend.extensions.appengine.daemon = true
+    }
+    doLast {
+        println "started the server!"
+    }
+}
+

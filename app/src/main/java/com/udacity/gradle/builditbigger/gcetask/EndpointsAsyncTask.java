@@ -23,6 +23,7 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     public String doInBackground(Void... params) {
         if(myApiService == null) {  // Only do this once
+            /*
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
@@ -36,6 +37,11 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
                         }
                     });
             // end options for devappserver
+            */
+
+            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+                    new AndroidJsonFactory(), null)
+                    .setRootUrl("https://gce-joketellingapp.appspot.com/_ah/api/");
 
             myApiService = builder.build();
         }
